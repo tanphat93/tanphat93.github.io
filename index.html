@@ -1618,34 +1618,6 @@ renderHomeSettings();
 renderProjects();
 
 
-window.addEventListener('storage', event => {
-  if (event.key === STORAGE_KEY) {
-    reloadProjectsFromStorage();
-    return;
-  }
-  if (event.key === HOME_SETTINGS_KEY) {
-    if (!isEditingHomeInline) reloadHomeSettingsFromStorage();
-    return;
-  }
-  if (event.key === SYNC_KEY) {
-    try {
-      const payload = event.newValue ? JSON.parse(event.newValue) : null;
-      if (!payload) return;
-      if (payload.type === 'projects') {
-        reloadProjectsFromStorage();
-      } else if (payload.type === 'home') {
-        if (!isEditingHomeInline) reloadHomeSettingsFromStorage();
-      } else {
-        if (!isEditingHomeInline) reloadAllFromStorage();
-        else reloadProjectsFromStorage();
-      }
-    } catch (error) {
-      reloadAllFromStorage();
-    }
-  }
-});
-
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://badasotrgzficvuzmzqk.supabase.co';
