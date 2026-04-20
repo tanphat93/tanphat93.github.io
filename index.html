@@ -1665,7 +1665,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// LOAD PROJECTS
+// LOAD PROJECTS FROM SUPABASE
 async function loadProjectsFromDB() {
   const { data, error } = await supabaseClient
     .from('projects')
@@ -1685,17 +1685,17 @@ async function init() {
   const data = await loadProjectsFromDB();
 
   projects = (data || []).map(item => ({
-  id: item.id,
-  name: item.name || '',
-  cat: item.cat || '',
-  desc: item.desc || '',
-  client: item.client || '',
-  year: item.year || '',
-  videoLink: item.video_link || '',
-  coverImage: item.cover_image || '',
-  videoThumbs: Array.isArray(item.video_thumbs) ? item.video_thumbs : [],
-  images: Array.isArray(item.images) ? item.images : []
-}));
+    id: item.id,
+    name: item.name || '',
+    cat: item.cat || '',
+    desc: item.desc || '',
+    client: item.client || '',
+    year: item.year || '',
+    videoLink: item.video_link || '',
+    coverImage: item.cover_image || '',
+    videoThumbs: Array.isArray(item.video_thumbs) ? item.video_thumbs : [],
+    images: Array.isArray(item.images) ? item.images : []
+  }));
 
   renderProjects();
 }
