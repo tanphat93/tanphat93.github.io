@@ -1659,7 +1659,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -1683,18 +1682,27 @@ async function loadProjectsFromDB() {
   return data || [];
 }
 
-// TEST KẾT NỐI
+// INIT
 async function init() {
-  await loadProjects();
+  const data = await loadProjectsFromDB();
+
+  projects = (data || []).map(item => ({
+    id: item.id,
+    name: item.name || '',
+    cat: item.cat || '',
+    desc: item.desc || '',
+    client: item.client || '',
+    year: item.year || '',
+    videoLink: item.video_link || '',
+    coverImage: item.cover_image || '',
+    videoThumbs: Array.isArray(item.video_thumbs) ? item.video_thumbs : [],
+    images: Array.isArray(item.images) ? item.images : []
+  }));
+
   renderProjects();
 }
+
 init();
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = 'https://badasotrgzficvuzmzqk.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_wVw2Z6JCUP3T-CLLF0bQHQ_2EfBY_jA';
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 </script>
 </body>
 </html>
