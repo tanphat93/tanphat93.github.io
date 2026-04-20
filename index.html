@@ -706,41 +706,40 @@ function normalizeProject(project) {
   return normalized;
 }
 
-function loadProjects() {
+async function loadProjects() {
   try {
-    let stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      for (const legacyKey of LEGACY_STORAGE_KEYS) {
-        const legacy = localStorage.getItem(legacyKey);
-        if (legacy) {
-          stored = legacy;
-          break;
-        }
-      }
+    const { data, error } = await supabaseClient
+      .from('projects')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Lỗi load DB:', error);
+      projects = [];
+      return;
     }
 
-    const parsed = stored ? JSON.parse(stored) : null;
-    const source = Array.isArray(parsed) && parsed.length ? parsed : [...SAMPLES];
-    const normalizedProjects = source.map(normalizeProject);
+    projects = (data || []).map(item => ({
+      id: item.id,
+      name: item.name || '',
+      cat: item.cat || '',
+      desc: item.desc || '',
+      client: item.client || '',
+      year: item.year || '',
+      videoLink: item.video_link || '',
+      coverImage: item.cover_image || '',
+      videoThumbs: Array.isArray(item.video_thumbs) ? item.video_thumbs : [],
+      images: Array.isArray(item.images) ? item.images : []
+    }));
 
-    projects = normalizedProjects;
-
-    const shouldPersistNormalized = JSON.stringify(source) !== JSON.stringify(normalizedProjects);
-    if (shouldPersistNormalized || !localStorage.getItem(STORAGE_KEY)) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedProjects));
-    }
   } catch (error) {
-    projects = [...SAMPLES].map(normalizeProject);
+    console.error('Lỗi loadProjects:', error);
+    projects = [];
   }
 }
 
 function saveToStorage() {
-  try {
-    projects = (Array.isArray(projects) ? projects : []).map(normalizeProject);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-  } catch (error) {
-    console.warn('Không thể lưu localStorage:', error);
-  }
+  return;
 }
 
 
@@ -1685,9 +1684,9 @@ async function loadProjectsFromDB() {
 }
 
 // TEST KẾT NỐI
-async function initDB() {
-  const data = await loadProjectsFromDB();
-  console.log('✅ CONNECTED TO DB:', data);
+async function init() {
+  await loadProjects();
+  renderProjects();
 }
 
 initDB();
