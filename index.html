@@ -1646,6 +1646,12 @@ window.addEventListener('storage', event => {
 });
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://badasotrgzficvuzmzqk.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_wVw2Z6JCUP3T-CLLF0bQHQ_2EfBY_jA';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // VIEW ONLY + ADMIN MODE
 document.addEventListener("DOMContentLoaded", () => {
   const isAdmin = isAdminMode();
@@ -1654,7 +1660,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!isAdmin) {
     const selectors = ['#add-project-btn', '.action-btn', '#edit-home-btn', '#home-inline-editor', '#home-edit-actionbar'];
     selectors.forEach(s => {
-      document.querySelectorAll(s).forEach(el => el.style.display='none');
+      document.querySelectorAll(s).forEach(el => el.style.display = 'none');
     });
   }
 });
