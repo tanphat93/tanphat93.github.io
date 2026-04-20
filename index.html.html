@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Sáng Tạo — Blog Dự Án</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#B8965A;--gold-dark:#8A6E3E;--gold-soft:rgba(184,150,90,0.14);
+  --ink:#171612;--muted:#6d6a63;--surface:#ffffff;--subtle:#f6f3ee;--subtle-2:#efe9de;
+  --border:rgba(23,22,18,0.10);--danger:#A32D2D;--radius-md:10px;--radius-lg:18px;--shadow:0 18px 55px rgba(25,20,10,0.08);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --ink:#eee9df;--muted:#a39d90;--surface:#171612;--subtle:#11100d;--subtle-2:#1c1a15;
+    --border:rgba(255,255,255,0.08);--gold-soft:rgba(184,150,90,0.18);--shadow:0 18px 55px rgba(0,0,0,0.35);
+  }
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(184,150,90,0.08), transparent 28%),
+    linear-gradient(180deg,var(--subtle) 0%,var(--surface) 100%);
+  color:var(--ink);min-height:100vh;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1.5rem 5rem}
+.blog-header{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:28px;padding:2.2rem 2rem 1.8rem;
+  background:linear-gradient(135deg,rgba(255,255,255,0.82),rgba(255,255,255,0.58)),var(--surface);
+  box-shadow:var(--shadow);margin-bottom:2.2rem;
+}
+@media(prefers-color-scheme:dark){
+  .blog-header{background:linear-gradient(135deg,rgba(28,26,21,0.95),rgba(23,22,18,0.92)),var(--surface)}
+}
+.blog-header::before{
+  content:"";position:absolute;inset:auto -60px -60px auto;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle, rgba(184,150,90,0.18), transparent 68%);
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:2rem}
+.brand-mark{display:flex;align-items:center;gap:.9rem}
+.brand-icon{
+  width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+  border:1px solid rgba(184,150,90,0.26);background:var(--gold-soft);color:var(--gold);
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;
+}
+.brand-copy small{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem}
+.brand-copy strong{font-size:14px;font-weight:500}
+.toolbar{display:flex;justify-content:flex-end;gap:.8rem;flex-wrap:wrap}
+.btn{
+  padding:10px 18px;border:1px solid var(--gold);border-radius:999px;font-size:12px;letter-spacing:0.08em;
+  cursor:pointer;background:transparent;color:var(--gold);font-family:'DM Sans',sans-serif;transition:all .22s ease;
+}
+.btn:hover{background:var(--gold);color:#fff;transform:translateY(-1px)}
+.btn.primary{background:var(--gold);color:#fff}
+.btn.primary:hover{background:var(--gold-dark);border-color:var(--gold-dark)}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn.ghost:hover{border-color:var(--muted);color:var(--ink);background:transparent}
+.btn.danger{border-color:var(--danger);color:var(--danger)}
+.btn.danger:hover{background:var(--danger);color:#fff}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.75fr);gap:1.4rem;align-items:end}
+.blog-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,78px);font-weight:300;letter-spacing:.01em;line-height:.94;
+  max-width:8ch;
+}
+.blog-title em{font-style:italic;color:var(--gold)}
+.blog-sub{
+  font-size:14px;color:var(--muted);margin-top:1rem;line-height:1.8;max-width:56ch;
+}
+.nav-pills{display:flex;gap:9px;margin-top:1.4rem;flex-wrap:wrap}
+.pill{
+  padding:8px 15px;border:1px solid var(--border);border-radius:999px;font-size:12px;letter-spacing:0.08em;cursor:pointer;
+  background:rgba(255,255,255,0.55);color:var(--muted);transition:all 0.2s;font-family:'DM Sans',sans-serif;
+  backdrop-filter: blur(6px);
+}
+@media(prefers-color-scheme:dark){.pill{background:rgba(255,255,255,0.03)}}
+.pill:hover,.pill.active{background:var(--gold);border-color:var(--gold);color:#fff}
+.hero-panel{
+  border:1px solid var(--border);border-radius:24px;padding:1.2rem;background:linear-gradient(180deg,var(--surface),transparent);
+}
+.hero-panel-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.stat-card{
+  padding:1rem;border-radius:18px;background:var(--subtle);border:1px solid var(--border);
+}
+.stat-card strong{display:block;font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;line-height:1}
+.stat-card span{display:block;font-size:12px;color:var(--muted);margin-top:.45rem;line-height:1.5}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:2rem 0 1rem;flex-wrap:wrap
+}
+.section-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.section-note{font-size:13px;color:var(--muted)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem}
+.proj-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;position:relative;
+  box-shadow:0 8px 24px rgba(0,0,0,0.03);
+}
+.proj-card:hover{transform:translateY(-6px);border-color:rgba(184,150,90,0.48);box-shadow:var(--shadow)}
+.card-actions{display:none}
+.proj-media{
+  aspect-ratio:16/10;background:linear-gradient(180deg,rgba(184,150,90,0.06),transparent),var(--subtle);
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer
+}
+.proj-media::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.15) 100%);opacity:.75
+}
+.proj-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+.proj-card:hover .proj-media img{transform:scale(1.04)}
+.type-badge{
+  position:absolute;top:14px;left:14px;background:rgba(15,15,15,0.66);backdrop-filter:blur(8px);color:#fff;
+  font-size:10px;letter-spacing:0.12em;padding:6px 11px;border-radius:999px;z-index:2
+}
+.play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none}
+.play-circle{
+  width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,0.18);backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;transition:transform 0.2s;pointer-events:none;
+  border:1px solid rgba(255,255,255,0.35);box-shadow:0 12px 28px rgba(0,0,0,0.18)
+}
+.proj-media:hover .play-circle{transform:scale(1.08)}
+.placeholder-dark{
+  width:100%;height:100%;background:linear-gradient(135deg,#16130e,#201a12);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px
+}
+.placeholder-dark span{font-size:11px;color:rgba(184,150,90,0.6);letter-spacing:0.18em;font-family:'Cormorant Garamond',serif}
+.proj-body{padding:1.15rem 1.2rem 1.25rem;cursor:pointer}
+.proj-meta-top{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:.65rem}
+.proj-cat{font-size:10px;letter-spacing:0.16em;color:var(--gold);text-transform:uppercase}
+.proj-year{font-size:11px;color:var(--muted)}
+.proj-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:8px;line-height:1.1}
+.proj-desc{font-size:13px;color:var(--muted);line-height:1.72;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:67px}
+.proj-footer{
+  display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
+  font-size:12px;color:var(--muted);gap:1rem
+}
+.footer-chip{
+  display:inline-flex;align-items:center;gap:.35rem;padding:6px 10px;border-radius:999px;background:var(--subtle);border:1px solid var(--border);
+}
+.empty-state{text-align:center;padding:5rem 0;grid-column:1/-1}
+.empty-state p{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:0.6rem}
+.empty-state small{font-size:13px;color:var(--muted)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:flex-start;justify-content:center;z-index:1000;padding:2rem 1rem;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal,.confirm-modal{
+  background:var(--surface);border-radius:22px;border:1px solid var(--border);box-shadow:var(--shadow)
+}
+.modal{padding:2.2rem;width:100%;max-width:560px;margin:auto}
+.modal h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;margin-bottom:1.6rem}
+.form-group{margin-bottom:1.2rem}
+.form-label{font-size:11px;letter-spacing:0.12em;color:var(--muted);margin-bottom:6px;display:block;text-transform:uppercase}
+.form-input,.form-select,.form-textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--subtle);
+  color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;transition:border-color 0.2s, box-shadow .2s
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(184,150,90,.12)}
+.form-textarea{min-height:108px;resize:vertical}
+.media-tabs{display:flex;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1rem}
+.media-tab{flex:1;padding:10px 8px;font-size:12px;letter-spacing:0.05em;cursor:pointer;background:transparent;color:var(--muted);border:none;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.media-tab.active{background:var(--gold);color:#fff}
+.link-hint{margin-top:10px;padding:12px 14px;background:var(--subtle);border-radius:12px;border:1px solid var(--border)}
+.link-hint p{font-size:11px;color:var(--muted);line-height:1.8}
+.link-hint strong{color:var(--ink);font-weight:500}
+.link-ok{margin-top:6px;font-size:11px;color:#3B6D11;display:none}
+.link-ok.show{display:block}
+.drop-zone{border:1px dashed var(--gold);border-radius:12px;padding:1.4rem;text-align:center;background:var(--subtle);cursor:pointer;transition:background 0.2s}
+.drop-zone:hover{background:var(--surface)}
+.drop-zone p{font-size:13px;color:var(--muted);margin-bottom:4px}
+.drop-zone small{font-size:11px;color:var(--gold)}
+.img-preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.img-thumb{aspect-ratio:1;border-radius:8px;overflow:hidden;position:relative;background:var(--subtle);border:1px solid var(--border)}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.img-thumb .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.65);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
+.confirm-modal{padding:2rem 2rem 1.8rem;width:100%;max-width:360px;margin:auto;text-align:center}
+.confirm-modal h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:0.8rem}
+.confirm-modal p{font-size:13px;color:var(--muted);margin-bottom:1.6rem;line-height:1.6}
+.confirm-modal .actions{display:flex;gap:8px;justify-content:center}
+.detail-page{display:none;position:fixed;inset:0;background:rgba(246,243,238,.96);backdrop-filter:blur(10px);z-index:500;overflow-y:auto}
+@media(prefers-color-scheme:dark){.detail-page{background:rgba(17,16,13,.92)}}
+.detail-page.open{display:block}
+.detail-inner{max-width:980px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+.back-btn{background:none;border:none;font-size:12px;letter-spacing:0.08em;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px;margin-bottom:2rem;font-family:'DM Sans',sans-serif;padding:0;transition:color 0.2s}
+.back-btn:hover{color:var(--gold)}
+.detail-shell{
+  border:1px solid var(--border);border-radius:28px;padding:1.6rem;background:var(--surface);box-shadow:var(--shadow)
+}
+.detail-cat{font-size:11px;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,58px);font-weight:300;line-height:1.02;margin-bottom:1rem}
+
+.detail-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin:0 0 1.4rem}
+.action-btn{
+  padding:10px 16px;border:1px solid var(--border);border-radius:999px;background:var(--subtle);
+  color:var(--ink);font:inherit;font-size:12px;letter-spacing:.08em;cursor:pointer;transition:all .2s
+}
+.action-btn:hover{transform:translateY(-1px);border-color:var(--gold);color:var(--gold)}
+.action-btn.danger{border-color:rgba(163,45,45,.35);color:var(--danger)}
+.action-btn.danger:hover{border-color:var(--danger);color:#fff;background:var(--danger)}
+
+.video-container{width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;margin-bottom:2rem;border:1px solid var(--border);position:relative;user-select:none}
+.video-container iframe{width:100%;height:100%;border:none;display:block}
+.video-shield{position:absolute;inset:0;z-index:5;background:transparent;cursor:default;pointer-events:none}
+.detail-desc{font-size:16px;line-height:1.9;color:var(--muted);margin-bottom:2rem;max-width:720px}
+.img-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:2rem}
+.img-gallery div{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:var(--subtle);border:1px solid var(--border)}
+.img-gallery div img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;transition:transform 0.3s;-webkit-user-drag:none;user-select:none}
+.img-gallery div img:hover{transform:scale(1.03)}
+.detail-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding-top:1.2rem;border-top:1px solid var(--border)}
+.meta-item{padding:1rem;border:1px solid var(--border);border-radius:16px;background:var(--subtle)}
+.meta-item label{font-size:10px;letter-spacing:0.14em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px}
+.meta-item span{font-size:14px}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;pointer-events:none;-webkit-user-drag:none}
+.lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:50%;width:42px;height:42px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+::-webkit-scrollbar{width:7px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.14);border-radius:999px}
+@media (max-width: 860px){
+  .hero-grid{grid-template-columns:1fr}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .toolbar{justify-content:flex-start}
+}
+@media (max-width: 640px){
+  .wrap{padding:1rem 1rem 4rem}
+  .blog-header{padding:1.25rem}
+  .projects-grid{grid-template-columns:1fr}
+  .proj-name{font-size:22px}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .detail-shell{padding:1.1rem}
+}
+
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.settings-grid .full{grid-column:1/-1}
+.color-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.color-chip{width:28px;height:28px;border-radius:50%;border:2px solid rgba(0,0,0,.08);cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+.color-chip:hover{transform:scale(1.06);box-shadow:0 6px 14px rgba(0,0,0,.10)}
+.theme-preview{
+  margin-top:12px;padding:14px;border:1px solid var(--border);border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.48)),var(--surface)
+}
+.theme-preview-card{
+  border:1px solid var(--border);border-radius:14px;padding:12px;background:var(--surface)
+}
+.theme-preview-badge{
+  display:inline-flex;align-items:center;gap:.35rem;padding:6px 10px;border-radius:999px;
+  background:var(--gold-soft);color:var(--gold);border:1px solid rgba(184,150,90,.22);font-size:12px
+}
+.detail-actions{display:flex;gap:10px;justify-content:flex-end;margin-bottom:1rem;flex-wrap:wrap}
+.action-btn{
+  padding:10px 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface);
+  color:var(--ink);cursor:pointer;font-size:12px;letter-spacing:.06em;transition:all .2s ease
+}
+.action-btn:hover{transform:translateY(-1px);border-color:var(--gold);color:var(--gold)}
+.action-btn.danger{border-color:rgba(163,45,45,.3);color:var(--danger)}
+.action-btn.danger:hover{background:var(--danger);border-color:var(--danger);color:#fff}
+@media (max-width:700px){
+  .settings-grid{grid-template-columns:1fr}
+}
+
+
+.video-thumb-box{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border)}
+.video-thumb-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.video-thumb-head p{font-size:12px;color:var(--muted)}
+.select-note{font-size:11px;color:var(--muted)}
+.thumb-select-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.select-thumb{
+  aspect-ratio:16/10;border-radius:10px;overflow:hidden;position:relative;background:var(--subtle);
+  border:1px solid var(--border);cursor:pointer
+}
+.select-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.select-thumb.active{border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(184,150,90,.12)}
+.select-thumb .pick-badge{
+  position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;
+  padding:4px 7px;border-radius:999px;letter-spacing:.06em
+}
+.select-thumb .rm{
+  position:absolute;top:6px;right:6px;background:rgba(0,0,0,.65);color:#fff;border:none;border-radius:50%;
+  width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center
+}
+@media (max-width:640px){
+  .thumb-select-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+
+.admin-form-footer{
+  position:sticky;bottom:0;z-index:5;
+  display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;
+  margin-top:18px;padding:14px 0 0;
+  background:linear-gradient(180deg, rgba(255,255,255,0), var(--surface) 26%);
+  border-top:1px solid var(--border);
+}
+.save-hint{
+  margin-right:auto;font-size:12px;color:var(--muted);align-self:center
+}
+
+
+.home-inline-editor{
+  display:none;margin-top:1.4rem;padding-top:1.3rem;border-top:1px solid var(--border)
+}
+.home-inline-editor.open{display:block}
+.home-editor-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1rem}
+.home-editor-head strong{font-size:16px}
+.home-editor-head span{font-size:12px;color:var(--muted)}
+.home-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.home-editor-grid .full{grid-column:1/-1}
+.home-theme-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.home-preset-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.home-edit-actionbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:1200;display:none;
+  padding:12px 20px;background:rgba(23,22,18,.12);backdrop-filter:blur(10px)
+}
+.home-edit-actionbar.open{display:block}
+.home-edit-actionbar-inner{
+  max-width:1180px;margin:0 auto;background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;padding:14px 18px;box-shadow:var(--shadow);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap
+}
+.home-edit-actionbar-inner p{font-size:13px;color:var(--muted)}
+.home-edit-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.blog-header.editing-home{padding-bottom:1.8rem}
+@media (max-width:700px){
+  .home-editor-grid{grid-template-columns:1fr}
+  .home-edit-actionbar{padding:10px}
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="app">
+<div id="main-page">
+<div class="wrap">
+  
+<div class="blog-header">
+  <div class="topbar">
+    <div class="brand-mark">
+      <div class="brand-icon" id="brand-icon">S</div>
+      <div class="brand-copy">
+        <small id="brand-tagline">Creative Portfolio</small>
+        <strong id="brand-name">Studio Sáng Tạo</strong>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="btn ghost" type="button" id="edit-home-btn" onclick="openInlineHomeEditor()">Chỉnh sửa Home</button>
+      <button class="btn primary" id="add-project-btn" onclick="openModal()">+ Thêm dự án</button>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <div>
+      <h1 class="blog-title"><span id="hero-line1">Studio</span> <em id="hero-line2">Sáng Tạo</em></h1>
+      <p class="blog-sub" id="hero-desc">Không gian portfolio dành cho các dự án hình ảnh, video và thiết kế. Bố cục được tối ưu theo phong cách studio hiện đại để khi lên Netlify nhìn chuyên nghiệp hơn, sạch hơn và tập trung vào phần trình bày tác phẩm.</p>
+      <div class="nav-pills">
+        <button class="pill active" onclick="filter('all',this)">Tất cả</button>
+        <button class="pill" onclick="filter('Hình ảnh',this)">Hình ảnh</button>
+        <button class="pill" onclick="filter('Video',this)">Video</button>
+        <button class="pill" onclick="filter('Thiết kế',this)">Thiết kế</button>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <p class="hero-panel-label" id="overview-label">Studio Overview</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <strong id="stat-total">0</strong>
+          <span>Tổng số dự án đang hiển thị trong portfolio.</span>
+        </div>
+        <div class="stat-card">
+          <strong id="stat-video">0</strong>
+          <span>Số dự án video với trình phát trực tiếp.</span>
+        </div>
+        <div class="stat-card">
+          <strong id="stat-image">0</strong>
+          <span>Dự án hình ảnh hoặc gallery có thumbnail.</span>
+        </div>
+        <div class="stat-card">
+          <strong id="stat-design">0</strong>
+          <span>Các dự án thiết kế, nhận diện và trình bày concept.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-inline-editor" id="home-inline-editor">
+    <div class="home-editor-head">
+      <strong>Chỉnh sửa Home</strong>
+      <span>Preview thay đổi sẽ cập nhật ngay trên trang chủ. Chỉ lưu khi bạn bấm “Lưu thay đổi”.</span>
+    </div>
+    <div class="home-editor-grid">
+      <div>
+        <label class="form-label">Tagline nhỏ</label>
+        <input class="form-input" id="e-brand-tagline" placeholder="Creative Portfolio">
+      </div>
+      <div>
+        <label class="form-label">Tên studio</label>
+        <input class="form-input" id="e-brand-name" placeholder="Studio Sáng Tạo">
+      </div>
+      <div>
+        <label class="form-label">Dòng tiêu đề 1</label>
+        <input class="form-input" id="e-hero-line1" placeholder="Studio">
+      </div>
+      <div>
+        <label class="form-label">Dòng tiêu đề 2</label>
+        <input class="form-input" id="e-hero-line2" placeholder="Sáng Tạo">
+      </div>
+      <div class="full">
+        <label class="form-label">Mô tả trang chủ</label>
+        <textarea class="form-textarea" id="e-hero-desc" placeholder="Giới thiệu ngắn về bạn hoặc studio..."></textarea>
+      </div>
+      <div>
+        <label class="form-label">Tiêu đề khối overview</label>
+        <input class="form-input" id="e-overview-label" placeholder="Studio Overview">
+      </div>
+      <div>
+        <label class="form-label">Ghi chú section</label>
+        <input class="form-input" id="e-section-note" placeholder="Portfolio layout · ...">
+      </div>
+      <div class="full">
+        <label class="form-label">Theme màu chính</label>
+        <div class="home-theme-row">
+          <input type="color" class="form-input" id="e-theme-color" style="width:72px;padding:6px;height:46px">
+          <input class="form-input" id="e-theme-color-text" placeholder="#B8965A">
+          <button class="btn ghost" type="button" onclick="applyInlineThemeHex()">Áp dụng mã màu</button>
+        </div>
+        <div class="home-preset-row">
+          <button class="color-chip" type="button" style="background:#B8965A" onclick="setInlineThemePreset('#B8965A')" title="Gold"></button>
+          <button class="color-chip" type="button" style="background:#7C8C6B" onclick="setInlineThemePreset('#7C8C6B')" title="Sage"></button>
+          <button class="color-chip" type="button" style="background:#6E7FA6" onclick="setInlineThemePreset('#6E7FA6')" title="Slate Blue"></button>
+          <button class="color-chip" type="button" style="background:#A56A5C" onclick="setInlineThemePreset('#A56A5C')" title="Terracotta"></button>
+          <button class="color-chip" type="button" style="background:#3F6B6A" onclick="setInlineThemePreset('#3F6B6A')" title="Teal"></button>
+          <button class="color-chip" type="button" style="background:#8C5E8A" onclick="setInlineThemePreset('#8C5E8A')" title="Plum"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="home-edit-actionbar" id="home-edit-actionbar">
+  <div class="home-edit-actionbar-inner wrap">
+    <p>Đang chỉnh Home ở chế độ preview. Bấm Lưu thay đổi để áp dụng thật, hoặc Hủy để quay về bản cũ.</p>
+    <div class="home-edit-buttons">
+      <button class="btn ghost" type="button" onclick="cancelInlineHomeEditor()">Hủy</button>
+      <button class="btn primary" type="button" onclick="saveInlineHomeEditor()">Lưu thay đổi</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="section-head">
+  <p class="section-label" id="grid-label">Tất cả dự án</p>
+  <p class="section-note" id="section-note">Portfolio layout · tối ưu cho Studio / Agency / Freelance Showcase</p>
+</div>
+<div class="projects-grid" id="grid"></div>
+
+</div>
+</div>
+</div>
+
+<!-- Modal thêm dự án -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+<div class="modal" onclick="event.stopPropagation()">
+  <h2 id="modal-title">Thêm dự án mới</h2>
+  <div class="form-group">
+    <label class="form-label">Tên dự án *</label>
+    <input class="form-input" id="f-name" placeholder="Nhập tên dự án...">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Thể loại</label>
+    <select class="form-select" id="f-cat">
+      <option>Hình ảnh</option>
+      <option>Video</option>
+      <option>Thiết kế</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Mô tả chi tiết</label>
+    <textarea class="form-textarea" id="f-desc" placeholder="Mô tả dự án, ý tưởng, quá trình thực hiện..."></textarea>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Khách hàng &amp; Năm</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <input class="form-input" id="f-client" placeholder="Tên khách hàng">
+      <input class="form-input" id="f-year" placeholder="2024">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Media</label>
+    <div class="media-tabs">
+      <button class="media-tab active" id="tab-video" onclick="switchTab('video')">Video (Drive / YouTube)</button>
+      <button class="media-tab" id="tab-image" onclick="switchTab('image')">Hình ảnh</button>
+    </div>
+    <div id="panel-video">
+      <input class="form-input" id="f-link" placeholder="Dán link Google Drive hoặc YouTube..." oninput="checkLink(this.value)" onpaste="setTimeout(() => checkLink(this.value), 0)">
+      <div class="link-ok" id="link-ok">✓ Link hợp lệ — card sẽ hiện biểu tượng play và video có thể phát trực tiếp</div>
+      <div class="link-hint">
+        <p>
+          <strong>Google Drive:</strong> Mở video → Chia sẻ → "Bất kỳ ai có link" → Copy link<br>
+          <strong>YouTube:</strong> Nhấn Chia sẻ → Copy link (hỗ trợ Unlisted)<br>
+          <strong>Bảo vệ:</strong> Video nhúng trực tiếp, không dẫn ra ngoài, không nút tải
+        </p>
+      </div>
+
+      <div class="video-thumb-box">
+        <div class="video-thumb-head">
+          <div>
+            <label class="form-label" style="margin-bottom:4px">Thumbnail ngoài Home</label>
+            <p>Upload các ảnh thumbnail cho video rồi chọn 1 ảnh làm cover hiển thị ngoài trang chủ.</p>
+          </div>
+        </div>
+        <div class="drop-zone" onclick="document.getElementById('f-video-thumbs').click()">
+          <p>Nhấn để chọn ảnh thumbnail cho video</p>
+          <small>JPG, PNG, WEBP — có thể chọn nhiều ảnh, sau đó bấm để chọn ảnh đại diện</small>
+          <input type="file" id="f-video-thumbs" accept="image/*" multiple style="display:none" onchange="handleVideoThumbs(this.files)">
+        </div>
+        <div class="select-note">Ảnh có viền vàng sẽ là thumbnail hiển thị ngoài Home.</div>
+        <div class="thumb-select-grid" id="video-thumb-preview"></div>
+      </div>
+    </div>
+    <div id="panel-image" style="display:none">
+      <div class="drop-zone" onclick="document.getElementById('f-imgs').click()">
+        <p>Nhấn để chọn hình ảnh</p>
+        <small>JPG, PNG, WEBP — nhiều file cùng lúc</small>
+        <input type="file" id="f-imgs" accept="image/*" multiple style="display:none" onchange="handleImages(this.files)">
+      </div>
+      <div class="img-preview-grid" id="img-preview"></div>
+    </div>
+  </div>
+  <div class="modal-actions admin-form-footer">
+    <span class="save-hint">Nhấn "Lưu thay đổi" để cập nhật, hoặc "Hủy" để bỏ qua chỉnh sửa.</span>
+    <button class="btn ghost" type="button" onclick="closeModal()">Hủy</button>
+    <button class="btn primary" type="button" id="save-project-btn" onclick="saveProject()">Lưu thay đổi</button>
+  </div>
+</div>
+</div>
+
+
+<!-- Modal tùy chỉnh Home -->
+<div class="modal-overlay" id="settings-overlay" onclick="closeHomeSettings()">
+<div class="modal" onclick="event.stopPropagation()">
+  <h2>Tùy chỉnh trang Home</h2>
+  <div class="settings-grid">
+    <div>
+      <label class="form-label">Tagline nhỏ</label>
+      <input class="form-input" id="s-brand-tagline" placeholder="Creative Portfolio">
+    </div>
+    <div>
+      <label class="form-label">Tên studio</label>
+      <input class="form-input" id="s-brand-name" placeholder="Studio Sáng Tạo">
+    </div>
+    <div>
+      <label class="form-label">Dòng tiêu đề 1</label>
+      <input class="form-input" id="s-hero-line1" placeholder="Studio">
+    </div>
+    <div>
+      <label class="form-label">Dòng tiêu đề 2</label>
+      <input class="form-input" id="s-hero-line2" placeholder="Sáng Tạo">
+    </div>
+    <div class="full">
+      <label class="form-label">Mô tả trang chủ</label>
+      <textarea class="form-textarea" id="s-hero-desc" placeholder="Mô tả studio, dịch vụ hoặc portfolio..."></textarea>
+    </div>
+    <div>
+      <label class="form-label">Tiêu đề khối overview</label>
+      <input class="form-input" id="s-overview-label" placeholder="Studio Overview">
+    </div>
+    <div>
+      <label class="form-label">Ghi chú section</label>
+      <input class="form-input" id="s-section-note" placeholder="Portfolio layout · ...">
+    </div>
+    <div class="full">
+      <label class="form-label">Màu theme chính</label>
+      <div class="color-row">
+        <input type="color" class="form-input" id="s-theme-color" style="width:72px;padding:6px;height:46px">
+        <input class="form-input" id="s-theme-color-text" placeholder="#B8965A">
+        <button class="btn ghost" type="button" onclick="syncThemeTextToPicker()">Áp dụng mã màu</button>
+      </div>
+      <div class="color-row" style="margin-top:10px">
+        <button class="color-chip" type="button" style="background:#B8965A" onclick="setThemePreset('#B8965A')" title="Gold"></button>
+        <button class="color-chip" type="button" style="background:#7C8C6B" onclick="setThemePreset('#7C8C6B')" title="Sage"></button>
+        <button class="color-chip" type="button" style="background:#6E7FA6" onclick="setThemePreset('#6E7FA6')" title="Slate Blue"></button>
+        <button class="color-chip" type="button" style="background:#A56A5C" onclick="setThemePreset('#A56A5C')" title="Terracotta"></button>
+        <button class="color-chip" type="button" style="background:#3F6B6A" onclick="setThemePreset('#3F6B6A')" title="Teal"></button>
+        <button class="color-chip" type="button" style="background:#8C5E8A" onclick="setThemePreset('#8C5E8A')" title="Plum"></button>
+      </div>
+      <div class="theme-preview">
+        <div class="theme-preview-card">
+          <span class="theme-preview-badge">Preview theme</span>
+          <p style="margin-top:12px;font-family:'Cormorant Garamond',serif;font-size:28px;line-height:1">Studio Moodboard</p>
+          <p style="margin-top:8px;color:var(--muted);font-size:13px;line-height:1.7">Màu theme sẽ áp dụng cho nút, nhãn, tiêu đề nhấn và một phần điểm nhấn giao diện.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-actions admin-form-footer">
+    <span class="save-hint">Bạn có thể lưu theme/nội dung mới hoặc hủy để giữ nguyên.</span>
+    <button class="btn ghost" type="button" onclick="resetHomeSettings()">Khôi phục mặc định</button>
+    <button class="btn ghost" type="button" onclick="closeHomeSettings()">Hủy</button>
+    <button class="btn primary" type="button" onclick="saveHomeSettings()">Lưu thay đổi</button>
+  </div>
+</div>
+</div>
+
+
+<!-- Modal xác nhận xoá -->
+<div class="modal-overlay" id="confirm-overlay" onclick="closeConfirm()">
+<div class="confirm-modal" onclick="event.stopPropagation()">
+  <h3>Xoá dự án?</h3>
+  <p id="confirm-text">Hành động này không thể hoàn tác.</p>
+  <div class="actions">
+    <button class="btn ghost" onclick="closeConfirm()">Huỷ</button>
+    <button class="btn danger" onclick="confirmDelete()">Xoá dự án</button>
+  </div>
+</div>
+</div>
+
+<!-- Detail page -->
+<div class="detail-page" id="detail-page">
+<div class="detail-inner">
+  <button class="back-btn" onclick="closeDetail()">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Quay lại danh sách
+  </button>
+  <div class="detail-shell"><div id="detail-content"></div></div>
+</div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+
+<script>
+const STORAGE_KEY = 'studio_projects_v4';
+const HOME_SETTINGS_KEY = 'studio_home_settings_v1';
+const SAMPLES = [
+  {id:1,name:'Ánh Sáng Hà Nội',cat:'Hình ảnh',desc:'Bộ ảnh ghi lại những khoảnh khắc ánh sáng đặc trưng của Hà Nội lúc bình minh và hoàng hôn. Dự án khám phá cách ánh sáng tự nhiên tương tác với kiến trúc Pháp cổ và đời sống đường phố.',client:'Cá nhân',year:'2024',videoLink:'',images:[]},
+  {id:2,name:'Ký Ức Phố Cổ',cat:'Video',desc:'Phim tài liệu ngắn về cuộc sống và văn hoá tại 36 phố phường Hà Nội. Kết hợp hình ảnh lưu trữ với góc quay hiện đại để kể câu chuyện về sự biến đổi của thành phố qua thời gian.',client:'Quỹ Di Sản',year:'2023',videoLink:'https://www.youtube.com/watch?v=ysz5S6PUM-U',images:[]},
+  {id:3,name:'Thương Hiệu Trà Việt',cat:'Thiết kế',desc:'Bộ nhận diện thương hiệu cho dòng trà cao cấp, lấy cảm hứng từ thư pháp Á Đông kết hợp thiết kế hiện đại tối giản.',client:'Trà Sơn Tuyết',year:'2024',videoLink:'',images:[]},
+];
+
+let projects = [];
+let currentFilter = 'all';
+let currentImages = [];
+let currentVideoThumbs = [];
+let currentVideoCover = '';
+let currentTab = 'video';
+let deleteTargetId = null;
+let homeSettings = {};
+let tempHomeSettings = {};
+let isEditingHomeInline = false;
+let editingProjectId = null;
+let currentDetailId = null;
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replace(/`/g, '&#96;');
+}
+
+function escapeJsString(value) {
+  return String(value ?? '')
+    .split('\\').join('\\\\')
+    .split("'").join("\\'")
+    .split('\n').join(' ')
+    .split('\r').join(' ');
+}
+
+function normalizeProject(project) {
+  const normalized = { ...project };
+
+  if (!Array.isArray(normalized.images)) normalized.images = [];
+  if (!Array.isArray(normalized.videoThumbs)) normalized.videoThumbs = [];
+
+  normalized.images = normalized.images.filter(Boolean);
+  normalized.videoThumbs = normalized.videoThumbs.filter(Boolean);
+
+  if (normalized.videoLink) {
+    if (!normalized.videoThumbs.length && normalized.images.length) {
+      normalized.videoThumbs = [...normalized.images];
+    }
+    normalized.images = [];
+    if (!normalized.coverImage || !normalized.videoThumbs.includes(normalized.coverImage)) {
+      normalized.coverImage = normalized.videoThumbs[0] || normalized.coverImage || '';
+    }
+  } else {
+    normalized.videoThumbs = [];
+    if (!normalized.coverImage || !normalized.images.includes(normalized.coverImage)) {
+      normalized.coverImage = normalized.images[0] || normalized.coverImage || '';
+    }
+  }
+
+  return normalized;
+}
+
+function loadProjects() {
+  try {
+    let stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) {
+      for (const legacyKey of LEGACY_STORAGE_KEYS) {
+        const legacy = localStorage.getItem(legacyKey);
+        if (legacy) {
+          stored = legacy;
+          break;
+        }
+      }
+    }
+
+    const parsed = stored ? JSON.parse(stored) : null;
+    const source = Array.isArray(parsed) && parsed.length ? parsed : [...SAMPLES];
+    const normalizedProjects = source.map(normalizeProject);
+
+    projects = normalizedProjects;
+
+    const shouldPersistNormalized = JSON.stringify(source) !== JSON.stringify(normalizedProjects);
+    if (shouldPersistNormalized || !localStorage.getItem(STORAGE_KEY)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedProjects));
+    }
+  } catch (error) {
+    projects = [...SAMPLES].map(normalizeProject);
+  }
+}
+
+function saveToStorage() {
+  try {
+    projects = (Array.isArray(projects) ? projects : []).map(normalizeProject);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+  } catch (error) {
+    console.warn('Không thể lưu localStorage:', error);
+  }
+}
+
+
+function hexToRgb(hex) {
+  const normalized = String(hex || '').trim().replace('#', '');
+  if (!/^[0-9a-fA-F]{6}$/.test(normalized)) return null;
+  const intVal = parseInt(normalized, 16);
+  return {
+    r: (intVal >> 16) & 255,
+    g: (intVal >> 8) & 255,
+    b: intVal & 255
+  };
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+}
+
+function shadeHex(hex, factor) {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return '#8A6E3E';
+  return rgbToHex(rgb.r * factor, rgb.g * factor, rgb.b * factor);
+}
+
+function rgbaFromHex(hex, alpha) {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return `rgba(184,150,90,${alpha})`;
+  return `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
+}
+
+function defaultHomeSettings() {
+  return {
+    brandTagline: 'Creative Portfolio',
+    brandName: 'Studio Sáng Tạo',
+    heroLine1: 'Studio',
+    heroLine2: 'Sáng Tạo',
+    heroDesc: 'Không gian portfolio dành cho các dự án hình ảnh, video và thiết kế. Bố cục được tối ưu theo phong cách studio hiện đại để khi lên Netlify nhìn chuyên nghiệp hơn, sạch hơn và tập trung vào phần trình bày tác phẩm.',
+    overviewLabel: 'Studio Overview',
+    sectionNote: 'Portfolio layout · tối ưu cho Studio / Agency / Freelance Showcase',
+    themeColor: '#B8965A'
+  };
+}
+
+function loadHomeSettings() {
+  try {
+    const stored = localStorage.getItem(HOME_SETTINGS_KEY);
+    const parsed = stored ? JSON.parse(stored) : {};
+    homeSettings = { ...defaultHomeSettings(), ...(parsed || {}) };
+  } catch (error) {
+    homeSettings = defaultHomeSettings();
+  }
+}
+
+function saveHomeSettingsToStorage() {
+  try {
+    localStorage.setItem(HOME_SETTINGS_KEY, JSON.stringify(homeSettings));
+  } catch (error) {
+    console.warn('Không thể lưu tùy chỉnh Home:', error);
+  }
+}
+
+
+function notifyPortfolioSync(type = 'all') {
+  try {
+    localStorage.setItem(SYNC_KEY, JSON.stringify({ type, time: Date.now() }));
+  } catch (error) {
+    console.warn('Không thể phát tín hiệu đồng bộ:', error);
+  }
+}
+
+function reloadProjectsFromStorage() {
+  loadProjects();
+  renderProjects();
+}
+
+function reloadHomeSettingsFromStorage() {
+  loadHomeSettings();
+  renderHomeSettings();
+}
+
+function reloadAllFromStorage() {
+  reloadProjectsFromStorage();
+  reloadHomeSettingsFromStorage();
+}
+
+function applyThemeColor(hex) {
+  const valid = /^#[0-9a-fA-F]{6}$/.test(String(hex || '').trim()) ? String(hex).trim() : '#B8965A';
+  document.documentElement.style.setProperty('--gold', valid);
+  document.documentElement.style.setProperty('--gold-dark', shadeHex(valid, 0.78));
+  document.documentElement.style.setProperty('--gold-soft', rgbaFromHex(valid, 0.14));
+}
+
+function renderHomeSettings(source = homeSettings) {
+  const settings = source || homeSettings || defaultHomeSettings();
+  document.getElementById('brand-tagline').textContent = settings.brandTagline;
+  document.getElementById('brand-name').textContent = settings.brandName;
+  document.getElementById('hero-line1').textContent = settings.heroLine1;
+  document.getElementById('hero-line2').textContent = settings.heroLine2;
+  document.getElementById('hero-desc').textContent = settings.heroDesc;
+  document.getElementById('overview-label').textContent = settings.overviewLabel;
+  document.getElementById('section-note').textContent = settings.sectionNote;
+  const icon = document.getElementById('brand-icon');
+  if (icon) icon.textContent = (settings.brandName || 'S').trim().charAt(0).toUpperCase() || 'S';
+  applyThemeColor(settings.themeColor);
+}
+
+
+function isAdminMode() {
+  return new URLSearchParams(window.location.search).get('admin') === '1';
+}
+
+function toggleInlineHomeEditorUI() {
+  const editor = document.getElementById('home-inline-editor');
+  const bar = document.getElementById('home-edit-actionbar');
+  const header = document.querySelector('.blog-header');
+  if (editor) editor.classList.toggle('open', isEditingHomeInline);
+  if (bar) bar.classList.toggle('open', isEditingHomeInline && isAdminMode());
+  if (header) header.classList.toggle('editing-home', isEditingHomeInline);
+}
+
+function fillInlineHomeEditorForm() {
+  const s = tempHomeSettings || homeSettings;
+  const map = {
+    'e-brand-tagline': s.brandTagline,
+    'e-brand-name': s.brandName,
+    'e-hero-line1': s.heroLine1,
+    'e-hero-line2': s.heroLine2,
+    'e-hero-desc': s.heroDesc,
+    'e-overview-label': s.overviewLabel,
+    'e-section-note': s.sectionNote,
+    'e-theme-color': s.themeColor,
+    'e-theme-color-text': s.themeColor
+  };
+  Object.entries(map).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value || '';
+  });
+}
+
+function readInlineHomeEditorForm() {
+  const colorPickerValue = document.getElementById('e-theme-color').value;
+  const colorTextValue = document.getElementById('e-theme-color-text').value.trim();
+  let finalColor = colorPickerValue;
+  if (colorTextValue) {
+    const normalized = /^#[0-9a-fA-F]{6}$/.test(colorTextValue) ? colorTextValue : (colorTextValue.match(/^[0-9a-fA-F]{6}$/) ? `#${colorTextValue}` : '');
+    if (normalized) finalColor = normalized;
+  }
+
+  tempHomeSettings = {
+    brandTagline: document.getElementById('e-brand-tagline').value.trim() || defaultHomeSettings().brandTagline,
+    brandName: document.getElementById('e-brand-name').value.trim() || defaultHomeSettings().brandName,
+    heroLine1: document.getElementById('e-hero-line1').value.trim() || defaultHomeSettings().heroLine1,
+    heroLine2: document.getElementById('e-hero-line2').value.trim() || defaultHomeSettings().heroLine2,
+    heroDesc: document.getElementById('e-hero-desc').value.trim() || defaultHomeSettings().heroDesc,
+    overviewLabel: document.getElementById('e-overview-label').value.trim() || defaultHomeSettings().overviewLabel,
+    sectionNote: document.getElementById('e-section-note').value.trim() || defaultHomeSettings().sectionNote,
+    themeColor: finalColor
+  };
+  return tempHomeSettings;
+}
+
+function previewInlineHomeEditor() {
+  readInlineHomeEditorForm();
+  renderHomeSettings(tempHomeSettings);
+}
+
+function bindInlineHomeEditorEvents() {
+  ['e-brand-tagline','e-brand-name','e-hero-line1','e-hero-line2','e-hero-desc','e-overview-label','e-section-note','e-theme-color','e-theme-color-text'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el || el.dataset.bound === '1') return;
+    el.addEventListener('input', previewInlineHomeEditor);
+    el.dataset.bound = '1';
+  });
+}
+
+function openInlineHomeEditor() {
+  if (!isAdminMode()) return;
+  tempHomeSettings = { ...homeSettings };
+  isEditingHomeInline = true;
+  fillInlineHomeEditorForm();
+  bindInlineHomeEditorEvents();
+  toggleInlineHomeEditorUI();
+  renderHomeSettings(tempHomeSettings);
+}
+
+function applyInlineThemeHex() {
+  const input = document.getElementById('e-theme-color-text').value.trim();
+  const normalized = /^#[0-9a-fA-F]{6}$/.test(input) ? input : (input.match(/^[0-9a-fA-F]{6}$/) ? `#${input}` : '');
+  if (!normalized) {
+    alert('Mã màu cần ở dạng #RRGGBB, ví dụ #B8965A');
+    return;
+  }
+  document.getElementById('e-theme-color').value = normalized;
+  document.getElementById('e-theme-color-text').value = normalized;
+  previewInlineHomeEditor();
+}
+
+function setInlineThemePreset(hex) {
+  document.getElementById('e-theme-color').value = hex;
+  document.getElementById('e-theme-color-text').value = hex;
+  previewInlineHomeEditor();
+}
+
+function saveInlineHomeEditor() {
+  readInlineHomeEditorForm();
+  homeSettings = { ...tempHomeSettings };
+  saveHomeSettingsToStorage();
+  renderHomeSettings(homeSettings);
+  notifyPortfolioSync('home');
+  isEditingHomeInline = false;
+  toggleInlineHomeEditorUI();
+  alert('Đã lưu thay đổi Home.');
+}
+
+function cancelInlineHomeEditor() {
+  tempHomeSettings = { ...homeSettings };
+  renderHomeSettings(homeSettings);
+  isEditingHomeInline = false;
+  toggleInlineHomeEditorUI();
+}
+
+function fillHomeSettingsForm() {
+  document.getElementById('s-brand-tagline').value = homeSettings.brandTagline;
+  document.getElementById('s-brand-name').value = homeSettings.brandName;
+  document.getElementById('s-hero-line1').value = homeSettings.heroLine1;
+  document.getElementById('s-hero-line2').value = homeSettings.heroLine2;
+  document.getElementById('s-hero-desc').value = homeSettings.heroDesc;
+  document.getElementById('s-overview-label').value = homeSettings.overviewLabel;
+  document.getElementById('s-section-note').value = homeSettings.sectionNote;
+  document.getElementById('s-theme-color').value = homeSettings.themeColor;
+  document.getElementById('s-theme-color-text').value = homeSettings.themeColor;
+}
+
+function openHomeSettings() {
+  openInlineHomeEditor();
+}
+
+function closeHomeSettings() {
+  const overlay = document.getElementById('settings-overlay');
+  if (overlay) overlay.classList.remove('open');
+}
+
+function setThemePreset(hex) {
+  document.getElementById('s-theme-color').value = hex;
+  document.getElementById('s-theme-color-text').value = hex;
+}
+
+function syncThemeTextToPicker() {
+  const input = document.getElementById('s-theme-color-text').value.trim();
+  const normalized = /^#[0-9a-fA-F]{6}$/.test(input) ? input : (input.match(/^[0-9a-fA-F]{6}$/) ? `#${input}` : '');
+  if (!normalized) {
+    alert('Mã màu cần ở dạng #RRGGBB, ví dụ #B8965A');
+    return;
+  }
+  document.getElementById('s-theme-color').value = normalized;
+  document.getElementById('s-theme-color-text').value = normalized;
+}
+
+function saveHomeSettings() {
+  const colorPickerValue = document.getElementById('s-theme-color').value;
+  const colorTextValue = document.getElementById('s-theme-color-text').value.trim();
+  let finalColor = colorPickerValue;
+  if (colorTextValue) {
+    const normalized = /^#[0-9a-fA-F]{6}$/.test(colorTextValue) ? colorTextValue : (colorTextValue.match(/^[0-9a-fA-F]{6}$/) ? `#${colorTextValue}` : '');
+    if (!normalized) {
+      alert('Mã màu cần ở dạng #RRGGBB, ví dụ #B8965A');
+      return;
+    }
+    finalColor = normalized;
+  }
+
+  homeSettings = {
+    brandTagline: document.getElementById('s-brand-tagline').value.trim() || defaultHomeSettings().brandTagline,
+    brandName: document.getElementById('s-brand-name').value.trim() || defaultHomeSettings().brandName,
+    heroLine1: document.getElementById('s-hero-line1').value.trim() || defaultHomeSettings().heroLine1,
+    heroLine2: document.getElementById('s-hero-line2').value.trim() || defaultHomeSettings().heroLine2,
+    heroDesc: document.getElementById('s-hero-desc').value.trim() || defaultHomeSettings().heroDesc,
+    overviewLabel: document.getElementById('s-overview-label').value.trim() || defaultHomeSettings().overviewLabel,
+    sectionNote: document.getElementById('s-section-note').value.trim() || defaultHomeSettings().sectionNote,
+    themeColor: finalColor
+  };
+
+  saveHomeSettingsToStorage();
+  renderHomeSettings();
+  notifyPortfolioSync('home');
+  notifyPortfolioSync('home');
+  closeHomeSettings();
+  alert('Đã lưu thay đổi trang Home.');
+}
+
+function resetHomeSettings() {
+  homeSettings = defaultHomeSettings();
+  fillHomeSettingsForm();
+  saveHomeSettingsToStorage();
+  renderHomeSettings();
+}
+
+
+function getEmbedUrl(link) {
+  if (!link) return null;
+  const cleaned = String(link).trim();
+
+  try {
+    const url = new URL(cleaned);
+    const host = url.hostname.replace(/^www\./, '');
+    const path = url.pathname;
+
+    if (host === 'drive.google.com') {
+      const match = cleaned.match(/\/d\/([^/?#]+)/) || cleaned.match(/[?&]id=([^&#]+)/) || cleaned.match(/\/file\/d\/([^/?#]+)/);
+      if (match?.[1]) return `https://drive.google.com/file/d/${match[1]}/preview`;
+    }
+
+    if (host === 'youtu.be') {
+      const id = path.replace(/^\//, '').split('/')[0];
+      if (id) return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+    }
+
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      if (path === '/watch' || path === '/live') {
+        const id = url.searchParams.get('v');
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+      }
+      if (path.startsWith('/shorts/')) {
+        const id = path.split('/shorts/')[1]?.split('/')[0];
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+      }
+      if (path.startsWith('/embed/')) {
+        const id = path.split('/embed/')[1]?.split('/')[0];
+        if (id) return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+      }
+    }
+  } catch (error) {}
+
+  const fallbackDrive = cleaned.match(/\/d\/([^/?#]+)/) || cleaned.match(/[?&]id=([^&#]+)/);
+  if (fallbackDrive?.[1]) return `https://drive.google.com/file/d/${fallbackDrive[1]}/preview`;
+
+  const ytId = extractYouTubeId(cleaned);
+  if (ytId) return `https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1`;
+
+  return null;
+}
+
+function extractYouTubeId(link) {
+  if (!link) return '';
+  const cleaned = String(link).trim();
+  const patterns = [
+    /youtu\.be\/([^?#&/]+)/,
+    /[?&]v=([^&#]+)/,
+    /youtube\.com\/shorts\/([^?#&/]+)/,
+    /youtube\.com\/embed\/([^?#&/]+)/
+  ];
+  for (const pattern of patterns) {
+    const match = cleaned.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+  return '';
+}
+
+function getLinkType(link) {
+  if (!link) return null;
+  if (link.includes('drive.google.com')) return 'Google Drive';
+  if (link.includes('youtube.com') || link.includes('youtu.be')) return 'YouTube';
+  return null;
+}
+
+function getVideoThumbnail(link) {
+  const ytId = extractYouTubeId(link);
+  if (!ytId) return '';
+  return `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+}
+
+function getFallbackMediaMarkup(hasVideo, safeCat) {
+  return `<div class="placeholder-dark">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <rect x="2" y="7" width="26" height="16" rx="2" stroke="#B8965A" stroke-width="0.8" opacity="0.45"/>
+      ${hasVideo ? '<polygon points="12,11 12,19 20,15" fill="#B8965A" opacity="0.55"/>' : '<rect x="7" y="12" width="16" height="1.5" rx="0.75" fill="#B8965A" opacity="0.4"/><rect x="7" y="16" width="11" height="1.5" rx="0.75" fill="#B8965A" opacity="0.3"/>'}
+    </svg>
+    <span>${hasVideo ? 'VIDEO' : 'ARTWORK'}</span>
+  </div>
+  <span class="type-badge">${safeCat.toUpperCase()}</span>
+  ${hasVideo ? '<div class="play-overlay"><div class="play-circle"><svg width="18" height="18" viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14" fill="#fff"/></svg></div></div>' : ''}`;
+}
+
+function updateStats() {
+  const total = projects.length;
+  const video = projects.filter(project => !!getEmbedUrl(project.videoLink)).length;
+  const image = projects.filter(project =>
+    (Array.isArray(project.images) && project.images.length > 0) ||
+    (Array.isArray(project.videoThumbs) && project.videoThumbs.length > 0) ||
+    !!project.coverImage
+  ).length;
+  const design = projects.filter(project => project.cat === 'Thiết kế').length;
+
+  [['stat-total', total], ['stat-video', video], ['stat-image', image], ['stat-design', design]].forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = String(value).padStart(2, '0');
+  });
+}
+
+function checkLink(val) {
+  document.getElementById('link-ok').classList.toggle('show', !!(val && getEmbedUrl(val)));
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-video').classList.toggle('active', tab === 'video');
+  document.getElementById('tab-image').classList.toggle('active', tab === 'image');
+  document.getElementById('panel-video').style.display = tab === 'video' ? 'block' : 'none';
+  document.getElementById('panel-image').style.display = tab === 'image' ? 'block' : 'none';
+}
+
+
+function renderVideoThumbs() {
+  const grid = document.getElementById('video-thumb-preview');
+  if (!grid) return;
+  grid.innerHTML = '';
+  currentVideoThumbs = (Array.isArray(currentVideoThumbs) ? currentVideoThumbs : []).filter(Boolean);
+  if (!currentVideoCover && currentVideoThumbs[0]) currentVideoCover = currentVideoThumbs[0];
+
+  currentVideoThumbs.forEach((src, index) => {
+    const imageSrc = typeof src === 'string' ? src : '';
+    const isActive = !!imageSrc && (currentVideoCover === imageSrc || (!currentVideoCover && index === 0));
+    const div = document.createElement('div');
+    div.className = 'select-thumb' + (isActive ? ' active' : '');
+
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.alt = `Thumbnail ${index + 1}`;
+
+    const rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'rm';
+    rm.innerHTML = '&#x2715;';
+    rm.onclick = (event) => removeVideoThumb(event, index);
+
+    const badge = document.createElement('span');
+    badge.className = 'pick-badge';
+    badge.textContent = isActive ? 'Đang chọn' : 'Chọn ảnh';
+
+    div.onclick = () => selectVideoCover(index);
+    div.appendChild(img);
+    div.appendChild(rm);
+    div.appendChild(badge);
+    grid.appendChild(div);
+  });
+}
+
+function selectVideoCover(index) {
+  const selected = currentVideoThumbs[index];
+  if (!selected) return;
+  currentVideoCover = selected;
+  renderVideoThumbs();
+}
+
+function handleVideoThumbs(files) {
+  const incoming = Array.from(files || []).slice(0, 12);
+  if (!incoming.length) return;
+
+  const tasks = incoming.map(file => new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = event => resolve(event.target.result);
+    reader.onerror = () => resolve('');
+    reader.readAsDataURL(file);
+  }));
+
+  Promise.all(tasks).then(results => {
+    const valid = results.filter(src => typeof src === 'string' && src.startsWith('data:image'));
+    currentVideoThumbs = [...(Array.isArray(currentVideoThumbs) ? currentVideoThumbs : []), ...valid].slice(0, 12);
+    if (!currentVideoCover || !currentVideoThumbs.includes(currentVideoCover)) {
+      currentVideoCover = currentVideoThumbs[0] || '';
+    }
+    renderVideoThumbs();
+    const input = document.getElementById('f-video-thumbs');
+    if (input) input.value = '';
+  });
+}
+
+function removeVideoThumb(event, index) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  const removed = currentVideoThumbs[index];
+  currentVideoThumbs.splice(index, 1);
+  if (currentVideoCover === removed) currentVideoCover = currentVideoThumbs[0] || '';
+  renderVideoThumbs();
+}
+
+
+function handleImages(files) {
+  currentImages = Array.from(files || []).slice(0, 8);
+  const grid = document.getElementById('img-preview');
+  grid.innerHTML = '';
+
+  currentImages.forEach((file, index) => {
+    const div = document.createElement('div');
+    div.className = 'img-thumb';
+    const reader = new FileReader();
+    reader.onload = event => {
+      div.innerHTML = `<img src="${event.target.result}" alt="Ảnh preview ${index + 1}"><button type="button" class="rm" onclick="removeImg(${index})">&#x2715;</button>`;
+    };
+    reader.readAsDataURL(file);
+    grid.appendChild(div);
+  });
+}
+
+function removeImg(index) {
+  currentImages.splice(index, 1);
+  handleImages(currentImages);
+}
+
+function renderProjects() {
+  const grid = document.getElementById('grid');
+  const list = currentFilter === 'all' ? projects : projects.filter(project => project.cat === currentFilter);
+  document.getElementById('grid-label').textContent = currentFilter === 'all' ? 'Tất cả dự án' : currentFilter;
+  updateStats();
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-state"><p>Chưa có dự án nào</p><small>Nhấn "+ Thêm dự án" để bắt đầu xây portfolio.</small></div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(project => {
+    const embedUrl = getEmbedUrl(project.videoLink);
+    const hasVideo = !!embedUrl;
+    const imageList = Array.isArray(project.images) ? project.images : [];
+    const videoThumbList = Array.isArray(project.videoThumbs) ? project.videoThumbs : [];
+    const preferredThumb = project.coverImage || '';
+    const imageThumb = project.videoLink
+      ? (preferredThumb || (videoThumbList[0] ? videoThumbList[0] : ''))
+      : (preferredThumb || (imageList[0] ? imageList[0] : ''));
+    const videoThumb = !imageThumb && hasVideo ? getVideoThumbnail(project.videoLink) : '';
+    const thumb = imageThumb || videoThumb;
+    const safeName = escapeHtml(project.name);
+    const safeDesc = escapeHtml(project.desc);
+    const safeClient = escapeHtml(project.client);
+    const safeCat = escapeHtml(project.cat);
+    const safeYear = escapeHtml(project.year);
+    const mediaLabel = hasVideo
+      ? (videoThumbList.length ? `${videoThumbList.length} thumb` : escapeHtml(getLinkType(project.videoLink)))
+      : (imageList.length ? `${imageList.length} ảnh` : '—');
+    const fallbackMarkup = getFallbackMediaMarkup(hasVideo, safeCat);
+
+    return `<article class="proj-card">
+      <div class="proj-media" onclick="openDetail(${project.id})">
+        ${thumb ? `<img src="${escapeAttr(thumb)}" alt="${safeName}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.parentNode.innerHTML='${escapeJsString(fallbackMarkup)}';">` : fallbackMarkup}
+        ${thumb ? `<span class="type-badge">${safeCat.toUpperCase()}</span>` : ''}
+        ${thumb && hasVideo ? '<div class="play-overlay"><div class="play-circle"><svg width="18" height="18" viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14" fill="#fff"/></svg></div></div>' : ''}
+      </div>
+      <div class="proj-body" onclick="openDetail(${project.id})">
+        <div class="proj-meta-top">
+          <p class="proj-cat">${safeCat}</p>
+          <span class="proj-year">${safeYear}</span>
+        </div>
+        <h3 class="proj-name">${safeName}</h3>
+        <p class="proj-desc">${safeDesc}</p>
+        <div class="proj-footer">
+          <span>${safeClient}</span>
+          <span class="footer-chip">${mediaLabel}</span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function filter(cat, element) {
+  currentFilter = cat;
+  document.querySelectorAll('.pill').forEach(pill => pill.classList.remove('active'));
+  if (element) element.classList.add('active');
+  renderProjects();
+}
+
+function askDelete(event, id) {
+  if (event) event.stopPropagation();
+  deleteTargetId = id;
+  const project = projects.find(item => item.id === id);
+  document.getElementById('confirm-text').textContent = `Bạn chắc chắn muốn xoá "${project ? project.name : ''}"? Hành động này không thể hoàn tác.`;
+  document.getElementById('confirm-overlay').classList.add('open');
+}
+
+function closeConfirm() {
+  document.getElementById('confirm-overlay').classList.remove('open');
+  deleteTargetId = null;
+}
+
+function confirmDelete() {
+  if (deleteTargetId === null) return;
+  const shouldCloseDetail = currentDetailId === deleteTargetId;
+  projects = projects.filter(project => project.id !== deleteTargetId);
+  saveToStorage();
+  renderProjects();
+  notifyPortfolioSync('projects');
+  closeConfirm();
+  if (shouldCloseDetail) closeDetail();
+}
+
+function resetForm() {
+  currentImages = [];
+  currentVideoThumbs = [];
+  currentVideoCover = '';
+  editingProjectId = null;
+  switchTab('video');
+  document.getElementById('modal-title').textContent = 'Thêm dự án mới';
+  document.getElementById('save-project-btn').textContent = 'Lưu thay đổi';
+  ['f-name', 'f-desc', 'f-client', 'f-year', 'f-link'].forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.value = '';
+      element.style.borderColor = '';
+    }
+  });
+  document.getElementById('f-cat').value = 'Hình ảnh';
+  const fileInput = document.getElementById('f-imgs');
+  if (fileInput) fileInput.value = '';
+  const videoThumbInput = document.getElementById('f-video-thumbs');
+  if (videoThumbInput) videoThumbInput.value = '';
+  document.getElementById('img-preview').innerHTML = '';
+  document.getElementById('video-thumb-preview').innerHTML = '';
+  document.getElementById('link-ok').classList.remove('show');
+}
+
+function populateForm(project) {
+  document.getElementById('f-name').value = project.name || '';
+  document.getElementById('f-cat').value = project.cat || 'Hình ảnh';
+  document.getElementById('f-desc').value = project.desc || '';
+  document.getElementById('f-client').value = project.client || '';
+  document.getElementById('f-year').value = project.year || '';
+  document.getElementById('f-link').value = project.videoLink || '';
+  checkLink(project.videoLink || '');
+
+  currentImages = [];
+  currentVideoThumbs = [];
+  currentVideoCover = '';
+  document.getElementById('img-preview').innerHTML = '';
+  document.getElementById('video-thumb-preview').innerHTML = '';
+
+  if (project.videoLink) {
+    const legacyImages = Array.isArray(project.images) ? project.images.filter(Boolean) : [];
+    const explicitThumbs = Array.isArray(project.videoThumbs) ? project.videoThumbs.filter(Boolean) : [];
+    currentVideoThumbs = (explicitThumbs.length ? explicitThumbs : legacyImages).filter(src => typeof src === 'string');
+    currentVideoCover = project.coverImage || currentVideoThumbs[0] || '';
+    renderVideoThumbs();
+    switchTab('video');
+    return;
+  }
+
+  if (Array.isArray(project.images) && project.images.length) {
+    project.images.forEach((src, index) => {
+      const div = document.createElement('div');
+      div.className = 'img-thumb';
+      div.innerHTML = `<img src="${src}" alt="Ảnh preview ${index + 1}"><button type="button" class="rm" onclick="removeExistingImage(${index})">&#x2715;</button>`;
+      document.getElementById('img-preview').appendChild(div);
+    });
+    currentImages = [...project.images];
+    switchTab('image');
+  } else {
+    switchTab('video');
+  }
+}
+
+function removeExistingImage(index) {
+  currentImages.splice(index, 1);
+  const grid = document.getElementById('img-preview');
+  grid.innerHTML = '';
+  currentImages.forEach((src, i) => {
+    const div = document.createElement('div');
+    div.className = 'img-thumb';
+    if (typeof src === 'string' && src.startsWith('data:image')) {
+      div.innerHTML = `<img src="${src}" alt="Ảnh preview ${i + 1}"><button type="button" class="rm" onclick="removeExistingImage(${i})">&#x2715;</button>`;
+    }
+    grid.appendChild(div);
+  });
+}
+
+function openModal() {
+  resetForm();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openEditModal(id) {
+  const project = projects.find(item => item.id === id);
+  if (!project) return;
+  resetForm();
+  editingProjectId = id;
+  document.getElementById('modal-title').textContent = 'Chỉnh sửa dự án';
+  document.getElementById('save-project-btn').textContent = 'Cập nhật dự án';
+  populateForm(project);
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function saveProject() {
+  const nameInput = document.getElementById('f-name');
+  const name = nameInput.value.trim();
+  const videoLink = document.getElementById('f-link').value.trim();
+
+  if (!name) {
+    nameInput.focus();
+    nameInput.style.borderColor = '#E24B4A';
+    return;
+  }
+
+  if (currentTab === 'video' && videoLink && !getEmbedUrl(videoLink)) {
+    alert('Link video chưa đúng định dạng Google Drive hoặc YouTube.');
+    return;
+  }
+
+  nameInput.style.borderColor = '';
+
+  const finalizeSave = (imagePayload) => {
+    const safeImagePayload = Array.isArray(imagePayload) ? imagePayload.filter(Boolean) : [];
+    const safeVideoThumbs = Array.isArray(currentVideoThumbs) ? currentVideoThumbs.filter(src => typeof src === 'string' && src.startsWith('data:image')) : [];
+    const safeVideoCover = safeVideoThumbs.includes(currentVideoCover) ? currentVideoCover : (safeVideoThumbs[0] || '');
+
+    const payload = {
+      id: editingProjectId || Date.now(),
+      name,
+      cat: document.getElementById('f-cat').value,
+      desc: document.getElementById('f-desc').value.trim() || 'Chưa có mô tả.',
+      client: document.getElementById('f-client').value.trim() || 'Cá nhân',
+      year: document.getElementById('f-year').value.trim() || String(new Date().getFullYear()),
+      videoLink: currentTab === 'video' ? videoLink : '',
+      images: currentTab === 'video' ? [] : safeImagePayload,
+      videoThumbs: currentTab === 'video' ? safeVideoThumbs : [],
+      coverImage: currentTab === 'video' ? safeVideoCover : (safeImagePayload[0] || '')
+    };
+
+    if (editingProjectId) {
+      const index = projects.findIndex(project => project.id === editingProjectId);
+      if (index !== -1) projects[index] = normalizeProject(payload);
+      if (currentDetailId === editingProjectId) currentDetailId = payload.id;
+    } else {
+      projects.unshift(normalizeProject(payload));
+    }
+
+    saveToStorage();
+    renderProjects();
+    notifyPortfolioSync('projects');
+    closeModal();
+    alert(editingProjectId ? 'Đã lưu thay đổi dự án.' : 'Đã thêm dự án mới.');
+    if (editingProjectId || currentDetailId === payload.id) openDetail(payload.id);
+    editingProjectId = null;
+  };
+
+  if (currentTab === 'video') {
+    finalizeSave([]);
+    return;
+  }
+
+  if (!currentImages.length) {
+    finalizeSave([]);
+    return;
+  }
+
+  if (typeof currentImages[0] === 'string') {
+    finalizeSave(currentImages.slice(0, 8));
+    return;
+  }
+
+  let loaded = 0;
+  const imageData = [];
+  const sourceImages = currentImages.slice(0, 8);
+
+  sourceImages.forEach((file, index) => {
+    if (typeof file === 'string') {
+      imageData[index] = file;
+      loaded += 1;
+      if (loaded === sourceImages.length) finalizeSave(imageData.filter(Boolean));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = event => {
+      imageData[index] = event.target.result;
+      loaded += 1;
+      if (loaded === sourceImages.length) finalizeSave(imageData.filter(Boolean));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function openDetail(id) {
+  const project = projects.find(item => item.id === id);
+  if (!project) return;
+  currentDetailId = id;
+
+  const embedUrl = getEmbedUrl(project.videoLink);
+  const linkType = embedUrl ? getLinkType(project.videoLink) : null;
+  const normalizedProject = normalizeProject(project);
+  const imageGallery = normalizedProject.videoLink
+    ? (Array.isArray(normalizedProject.videoThumbs) && normalizedProject.videoThumbs.length ? normalizedProject.videoThumbs : [])
+    : (Array.isArray(normalizedProject.images) ? normalizedProject.images : []);
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-actions">
+      <button class="action-btn" onclick="openEditModal(${project.id})">Chỉnh sửa</button>
+      <button class="action-btn danger" onclick="askDelete(event, ${project.id})">Xoá dự án</button>
+    </div>
+    <p class="detail-cat">${escapeHtml(project.cat)}</p>
+    <h2 class="detail-title">${escapeHtml(project.name)}</h2>
+    ${embedUrl ? `<div class="video-container"><iframe src="${escapeAttr(embedUrl)}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe><div class="video-shield"></div></div>` : ''}
+    ${imageGallery.length ? `<div class="img-gallery">${imageGallery.map(src => `<div><img src="${escapeAttr(src)}" onclick="openLightbox('${escapeJsString(src)}')" oncontextmenu="return false;" ondragstart="return false;" alt="${escapeAttr(project.name)}"></div>`).join('')}</div>` : ''}
+    ${!embedUrl && !imageGallery.length ? '<div style="width:100%;aspect-ratio:16/9;background:#1a1814;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:2rem;border:0.5px solid rgba(0,0,0,0.1)"><span style="font-family:Cormorant Garamond,serif;font-size:14px;color:rgba(184,150,90,0.35);letter-spacing:0.12em">CHƯA CÓ MEDIA</span></div>' : ''}
+    <p class="detail-desc">${escapeHtml(project.desc)}</p>
+    <div class="detail-meta">
+      <div class="meta-item"><label>Khách hàng</label><span>${escapeHtml(project.client)}</span></div>
+      <div class="meta-item"><label>Năm</label><span>${escapeHtml(project.year)}</span></div>
+      <div class="meta-item"><label>Thể loại</label><span>${escapeHtml(project.cat)}</span></div>
+      ${linkType ? `<div class="meta-item"><label>Nguồn video</label><span>${escapeHtml(linkType)}</span></div>` : ''}
+    </div>`;
+
+  document.getElementById('detail-page').classList.add('open');
+  const isAdmin = new URLSearchParams(window.location.search).get('admin') === '1';
+  if (!isAdmin) {
+    document.querySelectorAll('.action-btn').forEach(el => el.style.display = 'none');
+  }
+  window.scrollTo(0, 0);
+}
+
+function closeDetail() {
+  currentDetailId = null;
+  document.getElementById('detail-page').classList.remove('open');
+}
+
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+}
+
+document.addEventListener('contextmenu', event => {
+  if (event.target.tagName === 'IMG' || event.target.closest('.video-container') || event.target.closest('.video-shield')) {
+    event.preventDefault();
+  }
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeModal();
+    closeConfirm();
+    closeDetail();
+    closeLightbox();
+    closeHomeSettings();
+    if (isEditingHomeInline) cancelInlineHomeEditor();
+  }
+});
+
+loadProjects();
+loadHomeSettings();
+renderHomeSettings();
+renderProjects();
+
+
+window.addEventListener('storage', event => {
+  if (event.key === STORAGE_KEY) {
+    reloadProjectsFromStorage();
+    return;
+  }
+  if (event.key === HOME_SETTINGS_KEY) {
+    if (!isEditingHomeInline) reloadHomeSettingsFromStorage();
+    return;
+  }
+  if (event.key === SYNC_KEY) {
+    try {
+      const payload = event.newValue ? JSON.parse(event.newValue) : null;
+      if (!payload) return;
+      if (payload.type === 'projects') {
+        reloadProjectsFromStorage();
+      } else if (payload.type === 'home') {
+        if (!isEditingHomeInline) reloadHomeSettingsFromStorage();
+      } else {
+        if (!isEditingHomeInline) reloadAllFromStorage();
+        else reloadProjectsFromStorage();
+      }
+    } catch (error) {
+      reloadAllFromStorage();
+    }
+  }
+});
+
+
+// VIEW ONLY + ADMIN MODE
+document.addEventListener("DOMContentLoaded", () => {
+  const isAdmin = isAdminMode();
+  bindInlineHomeEditorEvents();
+  toggleInlineHomeEditorUI();
+  if (!isAdmin) {
+    const selectors = ['#add-project-btn', '.action-btn', '#edit-home-btn', '#home-inline-editor', '#home-edit-actionbar'];
+    selectors.forEach(s => {
+      document.querySelectorAll(s).forEach(el => el.style.display='none');
+    });
+  }
+});
+
+</script>
+
+</body>
+</html>
