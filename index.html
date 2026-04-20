@@ -1690,5 +1690,11 @@ async function init() {
 }
 init();
 </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://badasotrgzficvuzmzqk.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_wVw2Z6JCUP3T-CLLF0bQHQ_2EfBY_jA';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 </body>
 </html>
