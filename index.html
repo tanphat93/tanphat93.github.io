@@ -1435,7 +1435,7 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
 }
 
-function saveProject() {
+async function saveProject() {
   const nameInput = document.getElementById('f-name');
   const name = nameInput.value.trim();
   const videoLink = document.getElementById('f-link').value.trim();
@@ -1453,7 +1453,7 @@ function saveProject() {
 
   nameInput.style.borderColor = '';
 
-  const finalizeSave = (imagePayload) => {
+  const finalizeSave = async (imagePayload) => {
     const safeImagePayload = Array.isArray(imagePayload) ? imagePayload.filter(Boolean) : [];
     const safeVideoThumbs = Array.isArray(currentVideoThumbs) ? currentVideoThumbs.filter(src => typeof src === 'string' && src.startsWith('data:image')) : [];
     const safeVideoCover = safeVideoThumbs.includes(currentVideoCover) ? currentVideoCover : (safeVideoThumbs[0] || '');
@@ -1470,6 +1470,25 @@ function saveProject() {
       videoThumbs: currentTab === 'video' ? safeVideoThumbs : [],
       coverImage: currentTab === 'video' ? safeVideoCover : (safeImagePayload[0] || '')
     };
+const dbPayload = {
+  name: payload.name,
+  cat: payload.cat,
+  desc: payload.desc,
+  client: payload.client,
+  year: payload.year,
+  video_link: payload.videoLink,
+  cover_image: payload.coverImage,
+  video_thumbs: payload.videoThumbs,
+  images: payload.images
+};
+
+const { error } = await supabaseClient.from('projects').insert([dbPayload]);
+
+if (error) {
+  console.error('Lỗi lưu DB:', error);
+  alert('Lưu database bị lỗi');
+  return;
+}
 
     if (editingProjectId) {
       const index = projects.findIndex(project => project.id === editingProjectId);
